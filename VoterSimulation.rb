@@ -1,11 +1,9 @@
-require 'green_shoes'
 require "./Person.rb"
 class VoterSimulation
-	def initialize(app)
-		@app = app
+	def initialize 
+		@list_of_politicians = []
+		@list_of_voters = []
 	end
-	@@list_of_politicians = []
-	@@list_of_voters = []
 	def  main_menu 
 		puts "What would you like to do?"
 		puts "(C)reate, (L)ist, (U)pdate, or (V)ote"
@@ -150,37 +148,37 @@ class VoterSimulation
 			end
 		end
 	end
-end
-def vote_random_republican
-	@@republicans[Random.rand(@@republicans.length)].votes += 1
-end
-def vote_random_democrat
-	@@democrats[Random.rand(@@democrats.length)].votes += 1
-end
-def vote_results
-	puts "--Politicians--"
-	@@list_of_politicians.each do |i|
-		puts "#{i.name}, #{i.party} #{i.votes}"
+	def vote_random_republican
+		@@republicans[Random.rand(@@republicans.length)].votes += 1
 	end
-end
-def options_select(*possible_options)
-	answer_index = @answers.index(@input)
-	eval(possible_options[answer_index])
-end
-def get_input(*possible_answers)
-	@answers = possible_answers
-	@input = gets.chomp.capitalize
-	accepted_response = false
-	@answers.each do |i|
-		if @input == i 
-			accepted_response = true
+	def vote_random_democrat
+		@@democrats[Random.rand(@@democrats.length)].votes += 1
+	end
+	def vote_results
+		puts "--Politicians--"
+		@@list_of_politicians.each do |i|
+			puts "#{i.name}, #{i.party} #{i.votes}"
 		end
 	end
-	if accepted_response == true
-		@input
-	else
-		puts "Invalid Answer!"
-		main_menu
+	def options_select(*possible_options)
+		answer_index = @answers.index(@input)
+		eval(possible_options[answer_index])
+	end
+	def get_input(*possible_answers)
+		@answers = possible_answers
+		@input = gets.chomp.capitalize
+		accepted_response = false
+		@answers.each do |i|
+			if @input == i 
+				accepted_response = true
+			end
+		end
+		if accepted_response == true
+			@input
+		else
+			puts "Invalid Answer!"
+			main_menu
+		end
 	end
 end
 vote = VoterSimulation.new
